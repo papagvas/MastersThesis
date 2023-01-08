@@ -5,19 +5,17 @@ import Clash.Prelude
 type Mat ma na a = Vec ma (Vec na a)
 
 mmult
-  :: na ~ mb
+  :: (Num a)
+
+  => na ~ mb
   => 1 <= mb
 
-  -- Allow simulation to access mb/nb:
   => KnownNat mb
   => KnownNat nb
 
-  -- Arguments:
-  => Mat ma na Int
-  -> Mat mb nb Int
-
-  -- Result:
-  -> Mat ma nb Int
+  => Mat ma na a
+  -> Mat mb nb a
+  -> Mat ma nb a
 mmult mA mB = result
   where
     mBT      = transpose mB
