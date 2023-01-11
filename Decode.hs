@@ -7,20 +7,22 @@ import Encode
 
 decode
   :: forall na mb nb a . na ~ nb
-  => Fractional a
-
+  => 1 <= nb
+  => (Eq a, Floating a)
   => KnownNat nb
   => KnownNat mb
 
   => Vec na a
   -> Mat mb nb Integer
   -> Mat mb nb a
-decode r h = undefined
+decode r h = e
   where
---    e = 
+    l = zipWith (+) r (map sum $ transpose e)
+    e = over (\el -> log $ (1 + el) / (1 - el)) $ map (\row -> smap (\j el' -> if el' /= 0 then rowV2C j row else 0) row) m'
+    m' = over (tanh . (/ 2)) m
     m = kronekerProd r' h'
     r' = (transpose ones) `mmult` (r :> Nil)
-    h' = fmap fmap fmap fromInteger h
+    h' = over fromInteger h
     ones = (repeat 1.0 :: Vec mb a) :> Nil
 
     kronekerProd = zipWith $ zipWith (*)
@@ -29,8 +31,6 @@ rowV2C
   :: forall i j a na . (Eq a, Num a)
 
   => 1 <= na
-  => j <= na
-  => KnownNat j
   => KnownNat na
   
   => SNat j
@@ -47,3 +47,6 @@ filterOut
   -> a
 filterOut _ _   0 = 1
 filterOut j j' el = if snatToNum j == snatToNum j' then 1 else el
+
+over :: (a -> c) -> Mat m n a -> Mat m n c
+over = fmap fmap fmap
