@@ -1,4 +1,4 @@
-module Encode where
+module Data.Matrix.Operations where
 
 import Clash.Prelude
 
@@ -22,14 +22,8 @@ mmult mA mB = result
     dot a b  = sum $ zipWith (*) a b
     result   = map (\ar -> dot ar <$> mBT) mA
 
-encode
-  :: na ~ mb
-  => 1 <= mb
+over :: (a -> c) -> Mat m n a -> Mat m n c
+over = fmap fmap fmap
 
-  => KnownNat mb
-  => KnownNat nb
-
-  => Vec na Int
-  -> Mat mb nb Int
-  -> Vec nb Int
-encode msg genMat = head $ (msg :> Nil) `mmult` genMat
+kronekerProd :: Num a => Mat ma na a -> Mat ma na a -> Mat ma na a
+kronekerProd = zipWith $ zipWith (*)
