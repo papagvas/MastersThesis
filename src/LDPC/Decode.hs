@@ -3,20 +3,19 @@ module LDPC.Decode where
 import Clash.Prelude
 
 import Data.Matrix.Operations qualified as M
-import LDPC.Encode qualified as E
 
 decode
   :: forall na mb nb a . na ~ nb
   => 1 <= nb
   => 1 <= mb
-  => (Eq a, Floating a)
+  => (Ord a, Eq a, Floating a)
   => KnownNat nb
   => KnownNat mb
 
   => Vec na a
   -> M.Mat mb nb Integer
-  -> M.Mat mb nb a
-decode r h = e
+  -> Vec na Int
+decode r h = nrz l
   where
     l = zipWith (+) r (map sum $ transpose e)
     e = M.over (\el -> log $ (1 + el) / (1 - el)) $ map (\row -> smap (\j el' -> if el' /= 0 then rowV2C j row else 0) row) m'
@@ -47,3 +46,9 @@ filterOut
   -> a
 filterOut _ _   0 = 1
 filterOut j j' el = if snatToNum j == snatToNum j' then 1 else el
+
+nrz
+  :: (Ord a, Floating a)
+  => Vec na a
+  -> Vec na Int
+nrz = map (\el -> if el < 0 then 1 else 0)

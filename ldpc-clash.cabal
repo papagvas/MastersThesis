@@ -1,0 +1,62 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           ldpc-clash
+version:        0.1.0
+synopsis:       Implementation of LDPC encoding and decoding in Clash
+category:       Hardware
+homepage:       https://github.com/papagvas/MastersThesis
+author:         Matthew Gvasalia
+maintainer:     papagvasexy@gmail.com
+build-type:     Simple
+extra-source-files:
+    README.md
+
+library
+  exposed-modules:
+      Data.Matrix.Operations
+      LDPC.Decode
+      LDPC.Encode
+      TopEntity
+  other-modules:
+      Paths_ldpc_clash
+  hs-source-dirs:
+      src
+  default-extensions:
+      BinaryLiterals
+      ConstraintKinds
+      DataKinds
+      DeriveAnyClass
+      DeriveGeneric
+      DeriveLift
+      DerivingStrategies
+      ExplicitForAll
+      ExplicitNamespaces
+      FlexibleContexts
+      FlexibleInstances
+      ImportQualifiedPost
+      KindSignatures
+      MagicHash
+      MonoLocalBinds
+      NoImplicitPrelude
+      NoStarIsType
+      NoStrictData
+      NoStrict
+      QuasiQuotes
+      ScopedTypeVariables
+      TemplateHaskellQuotes
+      TemplateHaskell
+      TypeApplications
+      TypeFamilies
+      TypeOperators
+  ghc-options: -fexpose-all-unfoldings -fno-worker-wrapper -fplugin GHC.TypeLits.KnownNat.Solver -fplugin GHC.TypeLits.Normalise -fplugin GHC.TypeLits.Extra.Solver
+  build-depends:
+      base >=4.7 && <5
+    , clash-prelude
+    , ghc-typelits-extra
+    , ghc-typelits-knownnat
+    , ghc-typelits-natnormalise
+  default-language: Haskell2010

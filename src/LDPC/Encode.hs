@@ -12,6 +12,6 @@ encode
   => KnownNat nb
 
   => Vec na Int
-  -> Mat mb nb Int
+  -> M.Mat mb nb Int
   -> Vec nb Int
 encode msg genMat = head $ (msg :> Nil) `M.mmult` genMat

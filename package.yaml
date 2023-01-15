@@ -29,6 +29,7 @@ default-extensions:
   - ExplicitNamespaces
   - FlexibleContexts
   - FlexibleInstances
+  - ImportQualifiedPost
   - KindSignatures
   - MagicHash
   - MonoLocalBinds
@@ -52,10 +53,3 @@ ghc-options:
 
 library:
   source-dirs: src
-
-executables:
-  ldpc:
-    source-dirs: app
-    main: Main.hs
-    dependencies:
-      - ldpc-clash
