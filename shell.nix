@@ -6,12 +6,6 @@ let
 in
 mkShell {
   buildInputs = [
-    (haskell.packages.ghc90.ghcWithPackages (p: with p; [
-      pkgs.haskellPackages.clash-ghc
-      ghc-typelits-extra
-      ghc-typelits-knownnat
-      ghc-typelits-natnormalise
-    ])
-)
+    pkgs.haskellPackages.ghc
   ];
 }

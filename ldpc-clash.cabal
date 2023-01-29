@@ -17,15 +17,17 @@ extra-source-files:
 
 library
   exposed-modules:
+      Data.FixedOps
       Data.Matrix.Operations
+      Hardware.TopEntity
       LDPC.Decode
       LDPC.Encode
-      TopEntity
   other-modules:
       Paths_ldpc_clash
   hs-source-dirs:
       src
   default-extensions:
+      AllowAmbiguousTypes
       BinaryLiterals
       ConstraintKinds
       DataKinds
@@ -54,8 +56,8 @@ library
       TypeOperators
   ghc-options: -fexpose-all-unfoldings -fno-worker-wrapper -fplugin GHC.TypeLits.KnownNat.Solver -fplugin GHC.TypeLits.Normalise -fplugin GHC.TypeLits.Extra.Solver
   build-depends:
-      base >=4.7 && <5
-    , clash-prelude
+      base
+    , clash-prelude >=1.6.3
     , ghc-typelits-extra
     , ghc-typelits-knownnat
     , ghc-typelits-natnormalise
